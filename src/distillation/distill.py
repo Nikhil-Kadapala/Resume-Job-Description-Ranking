@@ -14,7 +14,7 @@ from utils.parse_resume import parse_resume
 from data_structures.analysis_data import ResumeAnalysis, ClassEnum
 from data_structures.resume_data import Resume
 from data_structures.jd_data import JobDescription
-from utils.get_model_response import get_model_response
+from utils.get_teacher_response import get_teacher_response
 
 def create_fallback_analysis(resume_text: str, job_description_text: str, classification_label: str) -> ResumeAnalysis:
     """
@@ -79,7 +79,7 @@ def analyze_resume(model: str, resume_text: str, job_description_text: str, clas
     user_prompt = get_distill_user_prompt(resume_text, job_description_text, classification_label)
 
     try:
-        response = get_model_response(model, SYSTEM_PROMPT, user_prompt, response_format)
+        response = get_teacher_response(model, SYSTEM_PROMPT, user_prompt, response_format)
         
         # Check if response is None or an empty string
         if response is None or response == "":

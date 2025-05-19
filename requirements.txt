@@ -1,0 +1,14 @@
+pandas
+numpy
+pydantic
+nltk
+tqdm
+markitdown[all]
+torch
+transformers
+google-genai
+together
+pydub
+accelerate 
+torch
+peft

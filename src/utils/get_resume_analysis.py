@@ -1,0 +1,50 @@
+import os
+import json
+from typing import Any, Dict, List, Type
+from together import Together
+from data_structures.analysis_data import ResumeAnalysis
+
+def get_resume_analysis(model:str, sys_prompt:str, user_prompt:str, response_format:Type[ResumeAnalysis] | ResumeAnalysis)->str:
+    """ This function takes a user prompt and a system prompt, and returns the generated response of the model specified.
+    
+    Args:
+        model (str): The model to be used for analysis. Options:"Any model available through Google's Gemini API or Together.ai API".
+        user_prompt (str): The user's input prompt with the task query.
+        sys_prompt (str): The system prompt to guide the model's response.
+        response_format (Type[ResumeAnalysis] | ResumeAnalysis): The format class or instance of response expected from the model.
+
+    Returns:
+        str: The generated response from the model.
+    
+    """
+    assert isinstance(model, str), "model name must be a string"
+    assert isinstance(user_prompt, str), "user_prompt must be a string"
+    assert isinstance(sys_prompt, str), "sys_prompt must be a string"
+    assert response_format == ResumeAnalysis or isinstance(response_format, ResumeAnalysis), "response_format must be a ResumeAnalysis class or instance"
+    
+    analysis: ResumeAnalysis = None
+
+    try:
+        TOGETHER_API_KEY = os.getenv("TOGETHER_API_KEY")
+    except Exception as e:
+        print(f"Error: {e}")
+        exit()
+
+    client = Together(api_key=TOGETHER_API_KEY)
+        
+    try:
+
+        response = client.chat.completions.create(
+            messages=[{"role": "system", "content": sys_prompt}, {"role": "user", "content": user_prompt}],
+            model=model,
+            temperature=0.7,
+        )
+
+        analysis = response.choices[0].message.content 
+    
+    except Exception as e:
+
+        print(f"Error in get_resume_analysis(): {e}")
+        analysis = ""  
+
+    return analysis

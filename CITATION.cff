@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Kadapala"
+  given-names: "Nikhil"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "Resume-Job-Description-Ranking"
+description: "An LLM-based Resume analyzer/ranker that provides an overall score against a job description, personalized recommendations and actionable insights"
+version: 1.0.0
+doi: 10.5281/zenodo.1234
+date-released: 2025-05-25
+url: "https://github.com/Nikhil-Kadapala/Resume-Job-Description-Ranking"
+license: MIT
